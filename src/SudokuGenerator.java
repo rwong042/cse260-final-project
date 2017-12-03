@@ -1,15 +1,19 @@
-import java.util.Random;
+
 
 public class SudokuGenerator {
-    private static Random r = new Random();
 
     public static SudokuPuzzle generate() {
         SudokuPuzzle board = new SudokuPuzzle();
+        
+        
         return null;
     }
 
-    private static void setRegion(Square s) {
-        
+    private static void assignValues(SudokuPuzzle board) {
+        for(int i=0;i<8;i++) {
+            for(int j=0;j<8;j++) {
+            }
+        }
     }
 
 }

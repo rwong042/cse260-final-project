@@ -1,4 +1,5 @@
-
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * This class is meant to represent a Sudoku puzzle object, namely an array of squares with values in them.
@@ -8,6 +9,7 @@
 public class SudokuPuzzle {
 
     private Square[][] squares;
+    
 
     /**
      * Constructor with a specified array of values.
@@ -92,6 +94,15 @@ public class SudokuPuzzle {
      */
     public void setSquare(int row, int col, Square toSet) {
         squares[row][col] = toSet;
+    }
+
+    public Square[] getRow(int row) {
+        return squares[row];
+    }
+
+    public Square[] getCol(int col) {
+        return (Square[])(IntStream.range(0, squares.length)
+            .mapToObj(i -> squares[i][col]).toArray());
     }
 
 }
