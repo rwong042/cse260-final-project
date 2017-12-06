@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This object represents an individual Square in the sudoku grid,
@@ -8,10 +9,14 @@
  * @author Hackerman9000
  */
 public class Square {
+    public static final ArrayList<Integer> VALID_VALUES = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+
     private int value; 
     private boolean mutable;
     private int region;
     private int row,col;
+    private ArrayList<Integer> possibleValues = new ArrayList<Integer>(VALID_VALUES);
+    private ArrayList<Integer> resetValues = new ArrayList<Integer>(VALID_VALUES);
 
     public Square() {
         this.value = 0;
@@ -20,6 +25,7 @@ public class Square {
         this.row = -1;
         this.col = -1;
     }
+
     public Square(int value) {
         this.value = value;
         this.mutable = false;
@@ -29,6 +35,7 @@ public class Square {
         this.value = value;
         this.mutable = mutable;
     }
+
     public Square(int row, int col) {
         this.value = 0;
         this.mutable = false;
@@ -45,6 +52,11 @@ public class Square {
         this.value = value;
     }
 
+    public String toString() {
+        return "(" + getRow() + "," + getCol() + "):" + getValue() + "r" + getRegion();
+    }
+    
+    //GETTERS AND SETTERS
     /**
      * @return the mutable
      */
@@ -95,11 +107,31 @@ public class Square {
     }
 
     /**
+     * @return the possibleValues
+     */
+    public ArrayList<Integer> getPossibleValues() {
+        return possibleValues;
+    }
+
+    /**
+     * @param possibleValues the possibleValues to set
+     */
+    public void setPossibleValues(ArrayList<Integer> possibleValues) {
+        this.possibleValues = possibleValues;
+    }
+
+    /**
+     * @return the resetValues
+     */
+    public ArrayList<Integer> getResetValues() {
+        return resetValues;
+    }
+
+    /**
      * @param mutable the mutable to set
      */
     public void setMutable() {
         this.mutable = true;
     }
-
 
 }

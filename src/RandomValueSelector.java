@@ -1,7 +1,9 @@
-import java.util.HashSet;
 import java.util.Random;
 
 public class RandomValueSelector {
-    private Random r = new Random();
+    private static Random r = new Random();
 
+    public static int choose(int size) {
+        return r.nextInt(size);
+    }
 }

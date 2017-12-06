@@ -1,5 +1,5 @@
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class is meant to represent a Sudoku puzzle object, namely an array of squares with values in them.
@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 public class SudokuPuzzle {
 
     private Square[][] squares;
-    
 
     /**
      * Constructor with a specified array of values.
@@ -30,13 +29,19 @@ public class SudokuPuzzle {
         this.squares = new Square[9][9];
         for(int i=0;i<squares.length;i++) {
             for(int j=0;j<squares[0].length;j++) {
+                
+                
                 squares[i][j] = new Square(i,j);
+                
                 squares[i][j].setRow(i);
                 squares[i][j].setCol(j);
+                
                 setRegion(squares[i][j]);
-                //System.out.println(getSquare(i,j).getRow() + "," + getSquare(i,j).getCol() + " region " + getSquare(i,j).getRegion());
+                
+                System.out.println(getSquare(i,j).getRow() + "," + getSquare(i,j).getCol() + " region " + getSquare(i,j).getRegion());
             }
         }
+        System.out.println(Arrays.toString(getRow(3)) + "   |||   " + Arrays.toString(getCol(3)));
     }
 
     /**
@@ -81,12 +86,73 @@ public class SudokuPuzzle {
         }
     }
 
+    /**
+     * Returns an arraylist of all the values of the squares in a specified region
+     *
+     * @return a list of all values in the specified region
+     */
+    public ArrayList<Integer> getValuesInRegion(int regionNum) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(Square s : getAllSquares()) {
+            if(s.getRegion() == regionNum) {
+                list.add(s.getValue());
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Returns an arraylist of all the square objects in the board, in order
+     */
+    public ArrayList<Square> getAllSquares() {
+        ArrayList<Square> list = new ArrayList<Square>();
+        for(int i=0;i<81;i++) {
+            list.add(getSquare(i+1));
+        }
+        return list;
+    }
+
 
     /**
      * Returns the square object at the specified position on the board.
      */
     public Square getSquare(int row, int col) {
         return squares[row][col];
+    }
+
+    public Square getSquare(int squareNumber) {
+        int counter = 0;
+        
+        int i=0;
+        while(i<9) {
+            int j=0;
+            while(j<9) {
+                counter++;
+                if(counter == squareNumber) {
+                    return squares[i][j];
+                }
+                j++;
+            }
+            i++;
+        }
+        return null;
+    }
+
+    public void setSquare(Square toSet, int squareNumber) {
+        int counter = 0;
+        
+        int i=0;
+        while(i<9) {
+            int j=0;
+            while(j<9) {
+                counter++;
+                if(counter == squareNumber) {
+                    squares[i][j] = toSet;
+                }
+                j++;
+            }
+            i++;
+        }
     }
 
     /**
@@ -101,8 +167,11 @@ public class SudokuPuzzle {
     }
 
     public Square[] getCol(int col) {
-        return (Square[])(IntStream.range(0, squares.length)
-            .mapToObj(i -> squares[i][col]).toArray());
+        Square[] colArray = new Square[9];
+        for(int i=0;i<squares[0].length;i++) {
+            colArray[i] = squares[i][col];
+        }
+        return colArray;
     }
 
 }
